@@ -1,13 +1,13 @@
 var canvas=new fabric.Canvas("myCanvas");
-block_height=30;
-block_width=30;
+block_image_height=30;
+block_image_width=30;
 player_x=10;
 player_y=10;
 var player_object="";
 var block_object="";
 
 function player_update(){
-    fabric.Image.fromURL("superhero.png",function(Img){
+    fabric.Image.fromURL("player.png",function(Img){
         player_object=Img;
         player_object.scaleToWidth(100);
         player_object.scaleToHeight(170);
@@ -22,8 +22,8 @@ function player_update(){
 function new_image(get_image){
     fabric.Image.fromURL(get_image,function(Img){
         block_object=Img;
-        block_object.scaleToWidth(block_width);
-        block_object.scaleToHeight(block_height);
+        block_object.scaleToWidth(block_image_width);
+        block_object.scaleToHeight(block_image_height);
         block_object.set({
             top:player_y,
             left:player_x
@@ -40,18 +40,18 @@ function my_keydown(e){
 
     if(e.shiftKey==true && keyPressed=='80'){
         console.log("p and shift pressed together");
-        block_width=block_width+10;
-        block_height=block_height+10;
-        document.getElementById("current_width").innerHTML=block_width;
-        document.getElementById("current_height").innerHTML=block_height;
+        block_image_width=block_image_width+10;
+        block_image_height=block_image_height+10;
+        document.getElementById("current_width").innerHTML=block_image_width;
+        document.getElementById("current_height").innerHTML=block_image_height;
     }
 
     if(e.shiftKey==true && keyPressed=='77'){
         console.log("m and shift pressed together");
-        block_width=block_width-10;
-        block_height=block_height-10;
-        document.getElementById("current_width").innerHTML=block_width;
-        document.getElementById("current_height").innerHTML=block_height;
+        block_image_width=block_image_width-10;
+        block_image_height=block_image_height-10;
+        document.getElementById("current_width").innerHTML=block_image_width;
+        document.getElementById("current_height").innerHTML=block_image_height;
     }
 
     if(keyPressed=='70'){
@@ -80,22 +80,62 @@ function my_keydown(e){
     }
 
     if(keyPressed=='38'){
-        //up();
+        up();
         console.log("up");
     }
 
     if(keyPressed=='40'){
-        //down();
+        down();
         console.log("down");
     }
 
     if(keyPressed=='37'){
-        //left();
+        left();
         console.log("left");
     }
 
     if(keyPressed=='39'){
-        //right();
+        right();
         console.log("right");
+    }
+}
+
+function up(){
+    if(player_y>0){
+        player_y= player_y-block_image_height;
+        console.log("block image height = "+block_image_height);
+        console.log("When Up arrow key is pressed, x = "+player_x+" , y = "+player_y);
+        canvas.remove(player_object);
+        player_update();
+    }
+}
+
+function down(){
+    if(player_y<460){
+        player_y= player_y+block_image_height;
+        console.log("block image height = "+block_image_height);
+        console.log("When Down arrow key is pressed, x = "+player_x+" , y = "+player_y);
+        canvas.remove(player_object);
+        player_update();
+    }
+}
+
+function left(){
+    if(player_x>0){
+        player_x= player_x-block_image_width;
+        console.log("block image width = "+block_image_width);
+        console.log("When Left arrow key is pressed, x = "+player_x+" , y = "+player_y);
+        canvas.remove(player_object);
+        player_update();
+    }
+}
+
+function right(){
+    if(player_x<850){
+        player_x= player_x+block_image_width;
+        console.log("block image width = "+block_image_width);
+        console.log("When Right arrow key is pressed, x = "+player_x+" , y = "+player_y);
+        canvas.remove(player_object);
+        player_update();
     }
 }
